@@ -15,7 +15,7 @@ if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY'] #"thisisasecretkey" 
-app.config['SQLALCHEMY_DATABASE_URI'] = uri #os.environ['DATABASE_URL'] #'postgresql://postgres:1212@localhost/testdbapi' 
+app.config['SQLALCHEMY_DATABASE_URI'] = uri #'postgresql://postgres:1212@localhost/testapidbthebaton' # #os.environ['DATABASE_URL'] #'postgresql://postgres:1212@localhost/testdbapi' 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -25,7 +25,7 @@ class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    public_id = db.Column(db.Integer, unique=True)
+    public_id = db.Column(db.String, unique=True)
     first_name = db.Column(db.String(32))
     last_name = db.Column(db.String(32))
     username = db.Column(db.String(128), nullable=False)
