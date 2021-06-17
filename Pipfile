@@ -11,6 +11,7 @@ jwt = "*"
 gunicorn = "*"
 werkzeug = "*"
 datetime = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
