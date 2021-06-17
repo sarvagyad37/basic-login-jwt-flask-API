@@ -80,7 +80,7 @@ def create_user():
 
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
-    new_user = User(public_id = str(uuid.uuid4()), first_name = data['first_name'], last_name = data['last_name'], username = data['username'], password = hashed_password, email = data['email'], email_verified = True, is_staff = True, is_admin = True, created_at = datetime.datetime.utcnow(), modified_at=datetime.datetime.utcnow())
+    new_user = User(public_id = str(uuid.uuid4()), first_name = data['first_name'], last_name = data['last_name'], username = data['username'], password = hashed_password, email = data['email'], email_verified = False, is_staff = False, is_admin = False, created_at = datetime.datetime.utcnow(), modified_at=datetime.datetime.utcnow())
     db.session.add(new_user)
     db.session.commit()
 
