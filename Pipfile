@@ -6,12 +6,9 @@ name = "pypi"
 [packages]
 flask = "*"
 flask-sqlalchemy = "*"
-uuid = "*"
-jwt = "*"
-gunicorn = "*"
-werkzeug = "*"
-datetime = "*"
 psycopg2 = "*"
+gunicorn = "*"
+pyjwt = "==1.7.1"
 
 [dev-packages]
 
