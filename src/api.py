@@ -24,8 +24,8 @@ if FLASK_ENV == 'production':
 
 else:
     print("DEVELOPMENT ENVIROMENT")
-    app.config['SECRET_KEY'] = "thisisasecretkey"
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1212@localhost/testapidbthebaton' 
+    app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -312,7 +312,6 @@ def delete_user(current_user, public_id):
     db.session.commit()
 
     return jsonify({'message' : 'The user has been deleted!', 'success' : True})    
-
 
 
 if __name__ == '__main__':
