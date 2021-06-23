@@ -87,7 +87,7 @@ def confirm_email():
         db.session.commit()
         print(vars(current_user))
 
-        return jsonify({'message' : 'email verified'})
+        return jsonify({'message' : 'email verified', 'email_verified_from_db': current_user.email_verfied, 'success': True})
 
     except jwt.ExpiredSignatureError:
         return jsonify({'message' : 'Token is expired!', 'expired' : True}), 403
