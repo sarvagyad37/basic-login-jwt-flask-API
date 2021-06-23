@@ -1,2 +1,2 @@
-# thebaton-api
-backend API for TheBaton
+# basic-login-jwt-flask-API
+backend authentication API
