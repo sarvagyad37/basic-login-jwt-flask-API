@@ -189,37 +189,31 @@ def get_one_user(current_user, public_id):
 
 @user_api.route('/<public_id>', methods=['PUT'])
 @token_required
-def promote_user_to_staff(current_user, public_id):
-    if not current_user.is_admin:
-        return jsonify({'message' : 'Cannot perform that function', 'success' : False})
-
-    user = User.query.filter_by(public_id=public_id).first()
-
-    if not user:
-        return jsonify({'message' : 'No user found', 'success' : False})
-
-    user.is_staff = True
-    db.session.commit()
-
-    return jsonify({'message' : 'The user has been promoted to staff', 'success' : True})
-
-
-@user_api.route('/<public_id>', methods=['PUT'])
-@token_required
 def promote_user_to_admin(current_user, public_id):
+    role = request.args.get("role")
     if not current_user.is_admin:
-        return jsonify({'message' : 'Cannot perform that function', 'success' : False})
+        return jsonify({'message' : 'Cannot perform that function', 'success' : False}), 406
 
     user = User.query.filter_by(public_id=public_id).first()
 
     if not user:
         return jsonify({'message' : 'No user found', 'success' : False})
 
-    user.is_admin = True
-    db.session.commit()
+    if user.email_verified == True:
+        if role == "admin":
+            user.is_admin = True
+            user.is_staff = True
+            db.session.commit()
+            return jsonify({'message' : 'The user has been promoted to admin', 'success' : True})
 
-    return jsonify({'message' : 'The user has been promoted to admin', 'success' : True})
+        if role == "staff":
+            user.is_staff = True
+            db.session.commit()
+            return jsonify({'message' : 'The user has been promoted to staff', 'success' : True})
 
+        return jsonify({'message' : 'Role argument cannot be found', 'success' : True}), 406
+
+    return jsonify({'message' : 'The user needs to have verified their email', 'success' : False}), 406
 
 @user_api.route('/<public_id>', methods=['DELETE'])
 @token_required
