@@ -126,7 +126,7 @@ def send_verification_email(current_user):
 
         email_confirm_token = jwt.encode(email_verification_token_content, os.environ['SECRET_KEY'])
         qs = urlencode({"token": email_confirm_token})
-        url = f"https://thebaton-api.herokuapp.com/api/v1/confirm?{qs}"
+        url = f"https://basic-login-jwt-flask-api.herokuapp.com/api/v1/confirm?{qs}"
 
         send_conf_email(current_user.email, url)
         return jsonify({'success': True})
